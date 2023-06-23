@@ -7,7 +7,7 @@ import os
 from bs4 import BeautifulSoup
 from time import sleep
 
-
+# Main function
 def GetData(urls):
     global Data
     global time
@@ -85,6 +85,8 @@ def GetData(urls):
             #print(f'URL \033[1;31m{url}\033[0m Failed......'.center(70, ' '), end='\r')
         FinishedLength += 1
         percent = round((FinishedLength / TaskLength)*100, 2)
+
+        # Print out information about the collecting process
         if FinishedLength > 10:
             ExpectedTime = int(float(((datetime.now() - now).total_seconds() / FinishedLength)*(TaskLength - FinishedLength)))
             ExpectedTime = '{}h {}min {}sec'.format(ExpectedTime // 3600, (ExpectedTime % 3600) // 60, ExpectedTime % 60)
@@ -98,7 +100,8 @@ def GetData(urls):
             
     return None
     
-    
+
+# IGXE collection
 def GetDataIGXE(urls):
     global Data_IGXE
     global time
@@ -137,11 +140,11 @@ def GetDataIGXE(urls):
 
             try:
                 
-                # 提取磨损
+                # Exterior
                 pattern1 = r'(.+?)\n'
                 exterior = re.findall(pattern1, i.get_text())[0].strip()
 
-                # 提取价格
+                # Price
                 if '暂无在售' in i.get_text():
                     price = None
                 else:
@@ -203,7 +206,7 @@ if __name__ == '__main__':
 
     print(f'Collection Started ! Time: {time}'.center(70, '='))
 
-    # 获取url网址
+    # Get URLs
     urls = pd.read_csv('./Buff_URLs.csv').values
     urls = [urls[i][0] for i in range(len(urls))]
     
@@ -211,23 +214,21 @@ if __name__ == '__main__':
     Data_IGXE = []
     Data = []
 
-    # 获取url网址
+    # Get URLs
     urls_IGXE = pd.read_csv('./IGXE_URLs.csv').values
     urls_IGXE = [urls_IGXE[i][0] for i in range(len(urls_IGXE))]
     
     TaskLength = len(urls) + len(urls_IGXE)
     
-    # 均分
     step1 = len(urls_IGXE) // NumOfThreading
 
     DividedUrls1 = [urls_IGXE[i*step1 : (i+1)*step1] for i in range(NumOfThreading - 1)] + [urls_IGXE[(NumOfThreading-1)*step1:]]
     
-    # 均分
     step = len(urls) // NumOfThreading
 
     DividedUrls = [urls[i*step : (i+1)*step] for i in range(NumOfThreading - 1)] + [urls[(NumOfThreading - 1)*step:]]
 
-    # 多线程爬取
+    # Speed up using Thread
     threading_list = {}
     for num in range(NumOfThreading):
         threading_list[f'{num}'] = Thread(target=GetData, args=[DividedUrls[num]])
@@ -253,7 +254,7 @@ if __name__ == '__main__':
     end = datetime.now()
     print(f'All Finished ! Time : {time} \033[1;32m>>>\033[0m {end.year}-{end.month}-{end.day} {end.hour}:{end.minute}')
     
-    # 保存数据
+    # Saving Data
     pd.DataFrame(Data).to_csv(f'./price_data/{time}.csv', index=False)
     pd.DataFrame(Data_IGXE).to_csv(f'./IGXE_price/{time}.csv', index=False)
     
