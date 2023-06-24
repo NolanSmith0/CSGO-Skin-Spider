@@ -12,4 +12,5 @@
 - ```Buff_URLs.csv``` 和 ```IGXE_URLs.csv``` : 通过selenium获取的buff和IGXE所有皮肤的url
 
 # 数据分析：
-待完成......
+
+``` Time Series Analysis``` : 目前只做了一些简单的自相关分析，有待数据丰富后进一步完善。
