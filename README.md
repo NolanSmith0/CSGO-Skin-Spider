@@ -1,5 +1,26 @@
 # CSGO-Skin-Spider
 
+**English Intro**
+
+Hi! The project is a web scraper designed for two cs2 trading platforms in China [Buff](https://buff.163.com/?game=csgo) and [IGXE](https://www.igxe.cn/market/csgo?sort=3)
+
+This is also my final project for Course Python based data analytics, 2022 II, SDU.
+
+This project has following parts:
+
+- ```0 Demo.ipynb``` : Demo for Scraper implemented using requests, you can test this project and its outputs.
+- ```0.5 Selenium Spider``` : Scraper imlemented using selenium, which is able to collect 12k data within half hour, but it's pretty easy to get banned。
+- ```1 Data Visualization``` : A simple data visualization code, more to add。
+- ```2 selenium url collector``` : Scraper implemented using selenium, designed for collecting skin ids。
+- ```CSGO_Skin_spider.py``` : Main codes, scraper designed using requests, collecting 20k data within 2 hours, can speed up if with proxies.
+- ```./price_data/``` : Folder containing buff's data, I provided 2023.6.2-2023.6.22 's data.
+- ```./IGXE_price``` : Folder containing IGXE's data.
+- ```Buff_URLs.csv``` 和 ```IGXE_URLs.csv``` : All skin urls.
+
+---
+
+**Chinese Intro**
+
 您好！ 该项目为[网易Buff](https://buff.163.com/?game=csgo)和[IGXE](https://www.igxe.cn/market/csgo?sort=3)CSGO游戏皮肤价格爬虫脚本，由以下部分组成：
 
 - ```0 Demo.ipynb``` : requests爬虫的演示(```CSGO_Skin_spider.py```的简化版)，您可以在本文件中简单体验该项目的功能，查看爬取好的结构数据
