@@ -1,3 +1,40 @@
+## 使用说明
+
+该repo为我通过python和基础的requests库实现的buff CS2皮肤在售价格和数量爬虫，具体使用方法参照```mina.py```文件，定义的核心类和方法在```buff.py```中：
+
+```python
+import buff
+from datetime import datetime
+import pandas as pd
+
+# 定义你想要爬取的皮肤类型
+target_types = [
+    'AK47', 
+    'M4A1', 
+    'M4A4',
+]
+
+# 提供你的buff登录后的请求cookie，可以是多个
+headers = [
+    # 这里输入你的buff账号header cookie
+    {'Cookie' : '这里是cookie'}
+]
+
+# 数据存储地址
+save_path = 'E:/Notebook/CSGO Spider/data/'
+
+if __name__ == "__main__":
+    # 核心类 Buff_bot
+    buff_scraper = buff.Buff_bot(target_types, headers)
+    data = buff_scraper.run()
+    # 保存数据
+    pd.DataFrame(buff_scraper.data).to_csv(f'{save_path}{datetime.now().date()}.csv', index=False)
+```
+
+
+---
+下面为该项目早期的介绍
+
 # CSGO-Skin-Spider
 
 **English Intro**
